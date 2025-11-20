@@ -1,6 +1,7 @@
 package dz.handy.controller;
 
 import dz.handy.entity.Worker;
+import dz.handy.repository.WorkerRepository;
 import dz.handy.service.ServiceCategoryService;
 import dz.handy.service.WorkerService;
 import org.springframework.http.HttpStatus;
@@ -12,20 +13,23 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/workers")
+@CrossOrigin(origins = "*")
 public class WorkerController {
 
     private final WorkerService workerService;
+    private final WorkerRepository workerRepository;
     private final ServiceCategoryService serviceCategoryService;
 
-    public WorkerController(WorkerService workerService,  ServiceCategoryService serviceCategoryService) {
+    public WorkerController(WorkerService workerService, WorkerRepository workerRepository, ServiceCategoryService serviceCategoryService) {
         this.workerService = workerService;
+        this.workerRepository = workerRepository;
         this.serviceCategoryService = serviceCategoryService;
     }
 
-//    @GetMapping
-//    public List<Worker> getAll() {
-//        return workerService.findAll();
-//    }
+    @GetMapping
+    public List<Worker> getAll() {
+        return workerRepository.findAll();
+    }
 
     @GetMapping("/{username}")
     public ResponseEntity<Worker> getById(@PathVariable String username) {
