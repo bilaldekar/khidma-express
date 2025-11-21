@@ -155,6 +155,25 @@ public class HandydzApplication {
 				workerRepository.save(w5);
 			}
 
+			if (!workerRepository.existsById("worker6")) {
+				Worker worker6 = new Worker();
+				worker6.setUsername("worker6");
+				worker6.setPassword("worker6");
+				worker6.setEmail("worker5@example.com");
+				worker6.setFirstName("Sami");
+				worker6.setLastName("Meziani");
+				worker6.setEnabled(1);
+				worker6.setCreationDate(new Date());
+				worker6.setPhoneNumber1("0550-000-003");
+				worker6.setSpecialization("Carpenter");
+				worker6.setRating(4.8);
+				worker6.setAvailable(true);
+				worker6.setCategory(serviceCategoryRepository.findById(Long.valueOf(1)).get());
+				worker6.setLatitude(35.831852			);
+				worker6.setLongitude(5.232194);
+
+				workerRepository.save(worker6);
+			}
 			System.out.println("--> " + workerRepository.findAll().size() + " workers");
 		};
 	}
@@ -212,6 +231,20 @@ public class HandydzApplication {
 				userRepository.save(c4);
 			}
 
+			if (!userRepository.existsById("dekarb2")) {
+				Client c5 = Client.builder().build();
+				c5.setUsername("dekarb2");
+				c5.setPassword("dekarb2");
+				c5.setEmail("dekarb2@example.com");
+				c5.setFirstName("Yacine");
+				c5.setLastName("Zerrouki");
+				c5.setEnabled(1);
+				c5.setCreationDate(new Date());
+				c5.setPhoneNumber1("0661-000-003");
+				c5.setLatitude(36.652520);
+				c5.setLongitude(3.091661);
+				userRepository.save(c5);
+			}
 			System.out.println("--> Seeded clients. Total users: " + userRepository.findAll().size());
 		};
 	}

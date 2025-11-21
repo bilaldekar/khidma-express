@@ -91,11 +91,36 @@ public class AuthenticationService {
             return new ExtendedGenericResponse<>(400, "Username is null or empty", null);
         }
         String username = request.getUsername().trim();
-        if(userRepository.findByUsername(username).isPresent()){
+        if (userRepository.findByUsername(username).isPresent()) {
             return new ExtendedGenericResponse<>(400, "Username already exists", null);
         }
 
-        User user = new User();
+        // Determine target type from roles
+        List<String> roleIds = new ArrayList<>();
+        if (request.getRoleDTOS() != null && !request.getRoleDTOS().isEmpty()) {
+            Set<RoleDTO> roleDTOS = request.getRoleDTOS();
+            for (RoleDTO r : roleDTOS) {
+                if (r != null && r.getRoleId() != null) {
+                    roleIds.add(r.getRoleId());
+                }
+            }
+        }
+        boolean isProvider = roleIds.stream().anyMatch(r -> "PROVIDER".equalsIgnoreCase(r));
+        boolean isClient = roleIds.stream().anyMatch(r -> "CLIENT".equalsIgnoreCase(r));
+        if (isProvider && isClient) {
+            return new ExtendedGenericResponse<>(400, "User cannot have both CLIENT and PROVIDER roles at registration", null);
+        }
+
+        User user;
+        if (isProvider) {
+            user = new dz.handy.entity.Worker();
+        } else if (isClient) {
+            user = new dz.handy.entity.Client();
+        } else {
+            user = new User();
+        }
+
+        // Populate common fields
         user.setUsername(username);
         user.setEmail(request.getEmail());
         user.setPhoneNumber1(request.getPhoneNumber1());
@@ -103,7 +128,7 @@ public class AuthenticationService {
         user.setLastName(request.getLastName());
         user.setCreationDate(new Date());
         // expiryDate from DTO if provided, else 1 year ahead
-        Date expiry = null;
+        Date expiry;
         LocalDate reqExpiry = request.getExpiryDate();
         if (reqExpiry != null) {
             expiry = Date.from(reqExpiry.atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -123,18 +148,9 @@ public class AuthenticationService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         // handle roles (optional)
-        if (request.getRoleDTOS() != null && !request.getRoleDTOS().isEmpty()) {
-            List<String> roleIds = new ArrayList<>();
-            Set<RoleDTO> roleDTOS = request.getRoleDTOS();
-            for (RoleDTO r : roleDTOS) {
-                if (r != null && r.getRoleId() != null) {
-                    roleIds.add(r.getRoleId());
-                }
-            }
-            if (!roleIds.isEmpty()) {
-                List<Role> roles = roleRepository.findAllById(roleIds);
-                user.setRoles(roles);
-            }
+        if (!roleIds.isEmpty()) {
+            List<Role> roles = roleRepository.findAllById(roleIds);
+            user.setRoles(roles);
         }
 
         User saved = userRepository.save(user);

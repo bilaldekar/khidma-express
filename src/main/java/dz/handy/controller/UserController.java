@@ -50,12 +50,12 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-//    @DeleteMapping("/{username}")
-//    public ResponseEntity<Void> delete(@PathVariable String username) {
-//        boolean deleted = userService.delete(username);
-//        if (!deleted) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        return ResponseEntity.noContent().build();
-//    }
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> delete(@PathVariable String username) {
+        boolean deleted = userService.delete(username);
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }
