@@ -4,7 +4,10 @@ import dz.handy.entity.User;
 import dz.handy.model.security.ExtendedGenericResponse;
 import dz.handy.model.security.LoginResponse;
 import dz.handy.model.security.UserDTO;
+import dz.handy.model.security.VerificationCodeRequest;
+import dz.handy.model.security.VerificationEmailRequest;
 import dz.handy.service.AuthenticationService;
+import dz.handy.service.VerificationService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     AuthenticationService authenticationService;
-
+    VerificationService verificationService;
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody UserDTO request) {
@@ -30,5 +33,22 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ExtendedGenericResponse<User> register(@RequestBody UserDTO request) {
         return authenticationService.register(request);
+    }
+
+    @PostMapping("/verification/email")
+    public ExtendedGenericResponse<String> sendVerificationEmail(@RequestBody VerificationEmailRequest request) {
+        String username = request.getUsername();
+        String email = request.getEmail();
+        return verificationService.sendVerificationCode(username, email);
+    }
+
+    @PostMapping("/verification/email/confirm")
+    public ExtendedGenericResponse<String> confirmVerificationCode(@RequestBody VerificationCodeRequest request) {
+        boolean ok = verificationService.verifyCode(request.getEmail(), request.getCode());
+        if (ok) {
+            return new ExtendedGenericResponse<>(200, "Verification successful", "OK");
+        } else {
+            return new ExtendedGenericResponse<>(400, "Invalid or expired code", null);
+        }
     }
 }
