@@ -38,7 +38,9 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<Worker> findNearbyWorkers(ServiceCategory category, double clientLat, double clientLon, double radiusKm) {
-        List<Worker> allWorkers = workerRepository.findByCategory(category);
+        List<Worker> allWorkers = (category == null)
+                ? workerRepository.findAll()
+                : workerRepository.findByCategory(category);
         return allWorkers.stream()
                 .filter(worker -> worker.getLatitude() != null && worker.getLongitude() != null)
                 .filter(worker -> distanceKm(clientLat, clientLon, worker.getLatitude(), worker.getLongitude()) <= radiusKm)

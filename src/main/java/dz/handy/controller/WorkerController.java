@@ -68,11 +68,17 @@ public class WorkerController {
 
     @GetMapping("/nearby")
     public ResponseEntity<List<Worker>> findNearby(
-            @RequestParam("categoryId") Long categoryId,
+            @RequestParam(value = "categoryId", required = false) Long categoryId,
             @RequestParam("lat") double lat,
             @RequestParam("lon") double lon,
             @RequestParam("radiusKm") double radiusKm) {
-        List<Worker> nearby = workerService.findNearbyWorkers(serviceCategoryService.findById(categoryId).get(), lat, lon, radiusKm);
-        return ResponseEntity.ok(nearby);
+        if (categoryId == null) {
+            List<Worker> nearby = workerService.findNearbyWorkers(null, lat, lon, radiusKm);
+            return ResponseEntity.ok(nearby);
+        } else {
+            return serviceCategoryService.findById(categoryId)
+                    .map(cat -> ResponseEntity.ok(workerService.findNearbyWorkers(cat, lat, lon, radiusKm)))
+                    .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        }
     }
 }
