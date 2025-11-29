@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -21,21 +23,25 @@ public class ServiceCategoryController {
     }
 
     @GetMapping
-    public List<ServiceCategory> getAll() {
-        return service.findAll();
+    public List<ServiceCategory> getAll(@RequestParam(value = "lang", required = false) String lang) {
+        return service.findAll().stream()
+                .map(c -> toLocalized(c, lang))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceCategory> getById(@PathVariable Long id) {
+    public ResponseEntity<ServiceCategory> getById(@PathVariable Long id,
+                                                   @RequestParam(value = "lang", required = false) String lang) {
         return service.findById(id)
-                .map(ResponseEntity::ok)
+                .map(c -> ResponseEntity.ok(toLocalized(c, lang)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/by-name/{name}")
-    public ResponseEntity<ServiceCategory> getByName(@PathVariable String name) {
+    public ResponseEntity<ServiceCategory> getByName(@PathVariable String name,
+                                                     @RequestParam(value = "lang", required = false) String lang) {
         return service.findByName(name)
-                .map(ResponseEntity::ok)
+                .map(c -> ResponseEntity.ok(toLocalized(c, lang)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -71,5 +77,34 @@ public class ServiceCategoryController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.noContent().build();
+    }
+
+    private ServiceCategory toLocalized(ServiceCategory src, String lang) {
+        String code = lang == null ? "en" : lang.toLowerCase(Locale.ROOT);
+        String name = src.getName();
+        String desc = src.getDescription();
+        switch (code) {
+            case "fr":
+                name = src.getNameFr() != null ? src.getNameFr() : (name != null ? name : src.getNameAr());
+                desc = src.getDescriptionFr() != null ? src.getDescriptionFr() : (desc != null ? desc : src.getDescriptionAr());
+                break;
+            case "ar":
+                name = src.getNameAr() != null ? src.getNameAr() : (name != null ? name : src.getNameFr());
+                desc = src.getDescriptionAr() != null ? src.getDescriptionAr() : (desc != null ? desc : src.getDescriptionFr());
+                break;
+            default:
+                // en or unknown -> keep default name/description
+                if (name == null) name = src.getNameFr() != null ? src.getNameFr() : src.getNameAr();
+                if (desc == null) desc = src.getDescriptionFr() != null ? src.getDescriptionFr() : src.getDescriptionAr();
+        }
+        return ServiceCategory.builder()
+                .id(src.getId())
+                .name(name)
+                .description(desc)
+                .nameAr(src.getNameAr())
+                .nameFr(src.getNameFr())
+                .descriptionAr(src.getDescriptionAr())
+                .descriptionFr(src.getDescriptionFr())
+                .build();
     }
 }

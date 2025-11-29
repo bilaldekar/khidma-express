@@ -132,11 +132,146 @@ public class HandydzApplication {
 				"Home Hairdresser"
 			};
 
-			for (String name : additionalCategories) {
-				if (!categoryRepository.existsByName(name)) {
+			// French translations for additionalCategories (aligned by index)
+			String[] additionalCategoriesFr = new String[] {
+				"Plombier",
+				"Électricien",
+				"Menuisier",
+				"Forgeron",
+				"Technicien CVC",
+				"Technicien gaz",
+				"Réparation de chauffe-eau",
+				"Réparation de portes et fenêtres",
+				"Ouvrier du bâtiment",
+				"Poseur de carrelage",
+				"Poseur/décorateur de plaques de plâtre",
+				"Peintre",
+				"Isolation thermique et étanchéité",
+				"Pose de faïence et céramique",
+				"Démolition et rénovation",
+				"Nettoyage de maison",
+				"Nettoyage d’appartement après chantier",
+				"Nettoyage de tapis et moquettes",
+				"Nettoyage de citerne d’eau",
+				"Nettoyage de jardin",
+				"Désinfection et lutte antiparasitaire",
+				"Mécanicien automobile",
+				"Électricien auto",
+				"Vidange",
+				"Lavage auto à domicile",
+				"Réparation de pneus",
+				"Contrôle technique mobile",
+				"Transport de marchandises et meubles",
+				"Camion avec chauffeur",
+				"Monte-meubles",
+				"Livraison locale",
+				"Maintenance informatique",
+				"Installation réseau Wi‑Fi",
+				"Réparation de téléphone",
+				"Installation de caméras de sécurité",
+				"Développement de site web",
+				"Maintenance d’imprimantes",
+				"Jardinier",
+				"Tondeur de gazon",
+				"Paysagiste",
+				"Installation de système d’irrigation",
+				"Élagage des arbres",
+				"Couturier",
+				"Photographe",
+				"Designer d’intérieur",
+				"Fabricant de meubles sur mesure",
+				"Ferronnier d’art",
+				"Graveur",
+				"Écrivain public",
+				"Impression et photocopie",
+				"Traduction",
+				"Démarches/extraction de documents",
+				"Traiteur",
+				"Pâtissier traditionnel",
+				"Location de chaises et tables",
+				"DJ et musicien",
+				"Nounou",
+				"Infirmière à domicile",
+				"Coach sportif à domicile",
+				"Coiffeur(se) à domicile"
+			};
+
+			// Arabic translations for additionalCategories (aligned by index)
+			String[] additionalCategoriesAr = new String[] {
+				"سباك",
+				"كهربائي",
+				"نجار",
+				"حداد",
+				"تقني تكييف وتدفئة وتهوية",
+				"تقني غاز",
+				"تصليح سخان الماء",
+				"تصليح الأبواب والنوافذ",
+				"عامل بناء",
+				"مركّب بلاط",
+				"مركّب/مزخرف الجبسون بورد",
+				"دهان",
+				"عزل حراري ومائي",
+				"تركيب البلاط والسيراميك",
+				"هدم وتجديد",
+				"تنظيف المنازل",
+				"تنظيف الشقق بعد الأشغال",
+				"تنظيف السجاد والزرابي",
+				"تنظيف خزان الماء",
+				"تنظيف الحدائق",
+				"تعقيم ومكافحة الحشرات",
+				"ميكانيكي سيارات",
+				"كهربائي سيارات",
+				"تغيير الزيت",
+				"غسيل سيارات متنقل",
+				"تصليح العجلات",
+				"فحص تقني متنقل",
+				"نقل السلع والأثاث",
+				"شاحنة مع سائق",
+				"رافعة الأثاث",
+				"توصيل محلي",
+				"صيانة الحاسوب",
+				"تركيب شبكة واي فاي",
+				"تصليح الهواتف",
+				"تركيب كاميرات المراقبة",
+				"تطوير مواقع الويب",
+				"صيانة الطابعات",
+				"بستاني",
+				"جزّ عشب",
+				"مصمم حدائق",
+				"تركيب نظام السقي",
+				"تقليم الأشجار",
+				"خياط",
+				"مصوّر",
+				"مصمم داخلي",
+				"طلب صانع أثاث حسب الطلب",
+				"حداد فني",
+				"حفّار/نقّاش",
+				"كاتب عمومي",
+				"طباعة ونسخ",
+				"ترجمة",
+				"استخراج الوثائق",
+				"متعهد حفلات/ممون",
+				"حلويات تقليدية",
+				"كراء الكراسي والطاولات",
+				"دي جي وموسيقي",
+				"مربية أطفال",
+				"ممرضة منزلية",
+				"مدرب رياضي منزلي",
+				"حلاق/حلاقة منزلية"
+			};
+
+			for (int i = 0; i < additionalCategories.length; i++) {
+				String nameEn = additionalCategories[i];
+				String nameFr = additionalCategoriesFr[i];
+				String nameAr = additionalCategoriesAr[i];
+				if (!categoryRepository.existsByName(nameEn)) {
 					dz.handy.entity.ServiceCategory category = dz.handy.entity.ServiceCategory.builder()
-							.name(name)
-							.description(name)
+							.name(nameEn)
+							.nameFr(nameFr)
+							.nameAr(nameAr)
+							.description(nameEn)
+							.descriptionFr(nameFr)
+							.descriptionAr(nameAr)
 							.build();
 					categoryRepository.save(category);
 				}

@@ -20,7 +20,13 @@ public class ServiceCategory {
 
     private String name;
 
+    private String nameAr;
+
+    private String nameFr;
+
     private String description;
+    private String descriptionAr;
+    private String descriptionFr;
 
 //    @OneToMany(mappedBy = "category")
 //    @ToString.Exclude
