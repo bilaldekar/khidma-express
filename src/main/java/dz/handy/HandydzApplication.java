@@ -132,7 +132,7 @@ public class HandydzApplication {
 				"Home Hairdresser"
 			};
 
-			// French translations for additionalCategories (aligned by index)
+			// French translations aligned by index with additionalCategories
 			String[] additionalCategoriesFr = new String[] {
 				"Plombier",
 				"Électricien",
@@ -144,135 +144,135 @@ public class HandydzApplication {
 				"Réparation de portes et fenêtres",
 				"Ouvrier du bâtiment",
 				"Poseur de carrelage",
-				"Poseur/décorateur de plaques de plâtre",
+				"Poseur de plaques de plâtre / Décorateur",
 				"Peintre",
 				"Isolation thermique et étanchéité",
-				"Pose de faïence et céramique",
+				"Pose de carreaux et céramique",
 				"Démolition et rénovation",
 				"Nettoyage de maison",
-				"Nettoyage d’appartement après chantier",
+				"Nettoyage d’appartement après travaux",
 				"Nettoyage de tapis et moquettes",
-				"Nettoyage de citerne d’eau",
+				"Nettoyage de réservoir d’eau",
 				"Nettoyage de jardin",
 				"Désinfection et lutte antiparasitaire",
-				"Mécanicien automobile",
+				"Mécanicien auto",
 				"Électricien auto",
-				"Vidange",
+				"Vidange d’huile",
 				"Lavage auto à domicile",
 				"Réparation de pneus",
 				"Contrôle technique mobile",
-				"Transport de marchandises et meubles",
+				"Transport de marchandises et de meubles",
 				"Camion avec chauffeur",
 				"Monte-meubles",
 				"Livraison locale",
 				"Maintenance informatique",
-				"Installation réseau Wi‑Fi",
+				"Installation de réseau Wi-Fi",
 				"Réparation de téléphone",
 				"Installation de caméras de sécurité",
-				"Développement de site web",
+				"Développement de sites web",
 				"Maintenance d’imprimantes",
 				"Jardinier",
-				"Tondeur de gazon",
+				"Tonte de pelouse",
 				"Paysagiste",
 				"Installation de système d’irrigation",
-				"Élagage des arbres",
-				"Couturier",
+				"Élagage d’arbres",
+				"Tailleur",
 				"Photographe",
-				"Designer d’intérieur",
+				"Décorateur d’intérieur",
 				"Fabricant de meubles sur mesure",
-				"Ferronnier d’art",
+				"Forgeron d’art",
 				"Graveur",
 				"Écrivain public",
 				"Impression et photocopie",
 				"Traduction",
-				"Démarches/extraction de documents",
+				"Extraction de documents",
 				"Traiteur",
 				"Pâtissier traditionnel",
 				"Location de chaises et tables",
 				"DJ et musicien",
 				"Nounou",
-				"Infirmière à domicile",
+				"Infirmier(ère) à domicile",
 				"Coach sportif à domicile",
-				"Coiffeur(se) à domicile"
+				"Coiffeur à domicile"
 			};
 
-			// Arabic translations for additionalCategories (aligned by index)
+			// Arabic translations aligned by index with additionalCategories
 			String[] additionalCategoriesAr = new String[] {
 				"سباك",
 				"كهربائي",
 				"نجار",
 				"حداد",
-				"تقني تكييف وتدفئة وتهوية",
-				"تقني غاز",
-				"تصليح سخان الماء",
-				"تصليح الأبواب والنوافذ",
+				"فني تكييف وتدفئة وتهوية",
+				"فني غاز",
+				"إصلاح سخان المياه",
+				"إصلاح الأبواب والنوافذ",
 				"عامل بناء",
-				"مركّب بلاط",
-				"مركّب/مزخرف الجبسون بورد",
+				"مركب بلاط",
+				"مركب جبس بورد / ديكور",
 				"دهان",
 				"عزل حراري ومائي",
 				"تركيب البلاط والسيراميك",
 				"هدم وتجديد",
 				"تنظيف المنازل",
-				"تنظيف الشقق بعد الأشغال",
-				"تنظيف السجاد والزرابي",
-				"تنظيف خزان الماء",
+				"تنظيف الشقق بعد البناء",
+				"تنظيف السجاد والموكيت",
+				"تنظيف خزان المياه",
 				"تنظيف الحدائق",
 				"تعقيم ومكافحة الحشرات",
 				"ميكانيكي سيارات",
 				"كهربائي سيارات",
 				"تغيير الزيت",
 				"غسيل سيارات متنقل",
-				"تصليح العجلات",
+				"إصلاح الإطارات",
 				"فحص تقني متنقل",
-				"نقل السلع والأثاث",
+				"نقل البضائع والأثاث",
 				"شاحنة مع سائق",
-				"رافعة الأثاث",
+				"رافعة أثاث",
 				"توصيل محلي",
 				"صيانة الحاسوب",
 				"تركيب شبكة واي فاي",
-				"تصليح الهواتف",
+				"إصلاح الهواتف",
 				"تركيب كاميرات المراقبة",
 				"تطوير مواقع الويب",
 				"صيانة الطابعات",
 				"بستاني",
-				"جزّ عشب",
+				"جز العشب",
 				"مصمم حدائق",
-				"تركيب نظام السقي",
+				"تركيب نظام الري",
 				"تقليم الأشجار",
 				"خياط",
-				"مصوّر",
+				"مصور",
 				"مصمم داخلي",
-				"طلب صانع أثاث حسب الطلب",
+				"صانع أثاث حسب الطلب",
 				"حداد فني",
-				"حفّار/نقّاش",
+				"حفار/منقش",
 				"كاتب عمومي",
-				"طباعة ونسخ",
+				"طباعة وتصوير",
 				"ترجمة",
 				"استخراج الوثائق",
-				"متعهد حفلات/ممون",
+				"متعهد حفلات",
 				"حلويات تقليدية",
-				"كراء الكراسي والطاولات",
+				"تأجير الكراسي والطاولات",
 				"دي جي وموسيقي",
 				"مربية أطفال",
-				"ممرضة منزلية",
-				"مدرب رياضي منزلي",
-				"حلاق/حلاقة منزلية"
+				"ممرض/ممرضة منزلي",
+				"مدرب لياقة بدنية منزلي",
+				"حلاق/حلاقة منزلي"
 			};
 
 			for (int i = 0; i < additionalCategories.length; i++) {
-				String nameEn = additionalCategories[i];
+				String name = additionalCategories[i];
 				String nameFr = additionalCategoriesFr[i];
 				String nameAr = additionalCategoriesAr[i];
-				if (!categoryRepository.existsByName(nameEn)) {
+				if (!categoryRepository.existsByName(name)) {
 					dz.handy.entity.ServiceCategory category = dz.handy.entity.ServiceCategory.builder()
-							.name(nameEn)
-							.nameFr(nameFr)
-							.nameAr(nameAr)
-							.description(nameEn)
-							.descriptionFr(nameFr)
-							.descriptionAr(nameAr)
-							.build();
+						.name(name)
+						.nameFr(nameFr)
+						.nameAr(nameAr)
+						.description(name)
+						.descriptionFr(nameFr)
+						.descriptionAr(nameAr)
+						.build();
 					categoryRepository.save(category);
 				}
 			}
