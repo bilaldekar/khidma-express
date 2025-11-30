@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: handydz-postgres
+    container_name: khidma-express-postgres
     environment:
       POSTGRES_DB: handydzdb
       POSTGRES_USER: handydz

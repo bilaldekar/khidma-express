@@ -1,0 +1,13 @@
+package dz.khidma.express;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class KhidmaExpressApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

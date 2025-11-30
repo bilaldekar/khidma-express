@@ -8,11 +8,11 @@
 		<version>3.2.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>dz.handy</groupId>
-	<artifactId>handydz</artifactId>
+	<groupId>dz.khidma.express</groupId>
+	<artifactId>khidma-express</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>handydz</name>
-	<description>Handy DZ Project</description>
+	<name>khidma-express</name>
+	<description>Khidma Express Project</description>
 	<url/>
 	<licenses>
 		<license/>
