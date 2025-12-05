@@ -21,7 +21,7 @@ public class Worker extends User {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private ServiceCategory category;
+    private Category category;
 
     @OneToMany(mappedBy = "worker")
     private List<ServiceRequest> assignedRequests;

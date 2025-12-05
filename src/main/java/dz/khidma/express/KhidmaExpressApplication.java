@@ -1,7 +1,7 @@
 package dz.khidma.express;
 
 import dz.khidma.express.entity.Role;
-import dz.khidma.express.entity.ServiceCategory;
+import dz.khidma.express.entity.Category;
 import dz.khidma.express.repository.RoleRepository;
 import dz.khidma.express.repository.ServiceCategoryRepository;
 import dz.khidma.express.repository.UserRepository;
@@ -240,7 +240,7 @@ public class KhidmaExpressApplication {
 				String nameFr = additionalCategoriesFr[i];
 				String nameAr = additionalCategoriesAr[i];
 				if (!categoryRepository.existsByName(name)) {
-					ServiceCategory category = ServiceCategory.builder()
+					Category category = Category.builder()
 						.name(name)
 						.nameFr(nameFr)
 						.nameAr(nameAr)

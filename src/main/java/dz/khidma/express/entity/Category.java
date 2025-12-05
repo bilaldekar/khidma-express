@@ -3,15 +3,13 @@ package dz.khidma.express.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "service_category")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ServiceCategory {
+public class Category {
 
     @Id
     @SequenceGenerator(name = "ServiceCategoryIdSeq", sequenceName = "ServiceCategory_SEQ", allocationSize = 1)

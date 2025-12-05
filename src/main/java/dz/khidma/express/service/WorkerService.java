@@ -1,6 +1,6 @@
 package dz.khidma.express.service;
 
-import dz.khidma.express.entity.ServiceCategory;
+import dz.khidma.express.entity.Category;
 import dz.khidma.express.entity.Worker;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public interface WorkerService {
     Worker create(Worker worker);
 
 
-    List<Worker> findNearbyWorkers(ServiceCategory category, double clientLat, double clientLon, double radiusKm);
+    List<Worker> findNearbyWorkers(Category category, double clientLat, double clientLon, double radiusKm);
 
     List<Worker> findTopWorkersByRating(int limit);
 

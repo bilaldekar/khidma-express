@@ -52,7 +52,7 @@ public class ServiceRequest {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    private ServiceCategory category;
+    private Category category;
 
     private Integer rating;
 

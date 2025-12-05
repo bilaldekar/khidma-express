@@ -1,6 +1,6 @@
 package dz.khidma.express.service.impl;
 
-import dz.khidma.express.entity.ServiceCategory;
+import dz.khidma.express.entity.Category;
 import dz.khidma.express.entity.User;
 import dz.khidma.express.entity.Worker;
 import dz.khidma.express.repository.ServiceCategoryRepository;
@@ -99,19 +99,19 @@ public class UserServiceImpl implements UserService {
                     case "available" -> worker.setAvailable(castToBoolean(value));
                     case "categoryId" -> {
                         Long id = castToLong(value);
-                        ServiceCategory sc = serviceCategoryRepository.findById(id)
+                        Category sc = serviceCategoryRepository.findById(id)
                                 .orElseThrow(() -> new IllegalArgumentException("ServiceCategory not found: id=" + id));
                         worker.setCategory(sc);
                     }
                     case "categoryName" -> {
                         String name = (String) value;
-                        ServiceCategory sc = serviceCategoryRepository.findByName(name)
+                        Category sc = serviceCategoryRepository.findByName(name)
                                 .orElseThrow(() -> new IllegalArgumentException("ServiceCategory not found: name=" + name));
                         worker.setCategory(sc);
                     }
                     case "category" -> {
                         // Allow either id (number) or name (string)
-                        ServiceCategory sc = resolveCategory(value);
+                        Category sc = resolveCategory(value);
                         worker.setCategory(sc);
                     }
                     default -> { /* ignore unknown fields */ }
@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
         throw new IllegalArgumentException("Cannot cast to Long: " + value);
     }
 
-    private ServiceCategory resolveCategory(Object value) {
+    private Category resolveCategory(Object value) {
         if (value == null) return null;
 
         // Accept a numeric id directly

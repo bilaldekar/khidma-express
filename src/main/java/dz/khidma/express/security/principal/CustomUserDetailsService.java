@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,9 +26,13 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
+        // Email-only authentication
+        if (usernameOrEmail == null || usernameOrEmail.isBlank()) {
+            throw new UsernameNotFoundException("Email is required");
+        }
+        User user = userRepository.findByEmailIgnoreCase(usernameOrEmail.trim())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + usernameOrEmail));
 
         CustomUserDetails cud = new CustomUserDetails();
         cud.setUsername(user.getUsername());

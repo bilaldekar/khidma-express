@@ -1,6 +1,6 @@
 package dz.khidma.express.service.impl;
 
-import dz.khidma.express.entity.ServiceCategory;
+import dz.khidma.express.entity.Category;
 import dz.khidma.express.repository.ServiceCategoryRepository;
 import dz.khidma.express.service.ServiceCategoryService;
 import org.springframework.stereotype.Service;
@@ -18,22 +18,22 @@ public class ServiceCategoryServiceImpl implements ServiceCategoryService {
     }
 
     @Override
-    public List<ServiceCategory> findAll() {
+    public List<Category> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Optional<ServiceCategory> findById(Long id) {
+    public Optional<Category> findById(Long id) {
         return repository.findById(id);
     }
 
     @Override
-    public Optional<ServiceCategory> findByName(String name) {
+    public Optional<Category> findByName(String name) {
         return repository.findByName(name);
     }
 
     @Override
-    public ServiceCategory create(ServiceCategory category) {
+    public Category create(Category category) {
         if (category.getId() != null && repository.existsById(category.getId())) {
             throw new IllegalStateException("service category already exists");
         }
@@ -47,7 +47,7 @@ public class ServiceCategoryServiceImpl implements ServiceCategoryService {
     }
 
     @Override
-    public Optional<ServiceCategory> update(Long id, ServiceCategory category) {
+    public Optional<Category> update(Long id, Category category) {
         if (!repository.existsById(id)) {
             return Optional.empty();
         }
@@ -55,12 +55,12 @@ public class ServiceCategoryServiceImpl implements ServiceCategoryService {
             throw new IllegalArgumentException("category name is required");
         }
         // uniqueness check for name if changed
-        Optional<ServiceCategory> byName = repository.findByName(category.getName());
+        Optional<Category> byName = repository.findByName(category.getName());
         if (byName.isPresent() && !byName.get().getId().equals(id)) {
             throw new IllegalStateException("service category name already exists");
         }
         category.setId(id);
-        ServiceCategory saved = repository.save(category);
+        Category saved = repository.save(category);
         return Optional.of(saved);
     }
 

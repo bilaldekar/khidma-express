@@ -49,14 +49,20 @@ public class AuthenticationService {
     public LoginResponse login(@RequestBody UserDTO request) {
 
         try {
+                // Require email-only login
+                if (request.getEmail() == null || request.getEmail().isBlank()) {
+                    throw new AuthenticationException("Email is required for login", 1, HttpStatus.BAD_REQUEST);
+                }
+                String identifier = request.getEmail().trim();
 
                 Authentication authenticate = authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+                        new UsernamePasswordAuthenticationToken(identifier, request.getPassword())
                 );
 
                 UserPrincipal userPrincipal = (UserPrincipal) authenticate.getPrincipal();
 
-                userRepository.updateLastLogin(request.getUsername());
+                // Update last login using the authenticated username to avoid mismatch when logging in by email
+                userRepository.updateLastLogin(userPrincipal.getUsername());
 
                 String token = jwtTokenUtil.generateAccessToken(userPrincipal.getUser());
                 List<String> roles = jwtTokenUtil.getRoles(token.replace("Bearer ", ""));
@@ -65,8 +71,6 @@ public class AuthenticationService {
                         roles,
                         userPrincipal.getUsername(),
                         userPrincipal.getUser().getFullName());
-
-
 
         } catch (BadCredentialsException ex) {
             throw new AuthenticationException(ex.getMessage(), 2, HttpStatus.UNAUTHORIZED);
@@ -94,6 +98,15 @@ public class AuthenticationService {
         String username = request.getUsername().trim();
         if (userRepository.findByUsername(username).isPresent()) {
             return new ExtendedGenericResponse<>(400, "Username already exists", null);
+        }
+
+        // Validate email: required and unique (case-insensitive)
+        String email = request.getEmail() != null ? request.getEmail().trim() : null;
+        if (email == null || email.isEmpty()) {
+            return new ExtendedGenericResponse<>(400, "Email is required", null);
+        }
+        if (userRepository.findByEmailIgnoreCase(email).isPresent()) {
+            return new ExtendedGenericResponse<>(400, "Email already in use", null);
         }
 
         // Determine target type from roles

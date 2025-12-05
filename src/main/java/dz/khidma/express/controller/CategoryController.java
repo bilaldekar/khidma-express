@@ -1,6 +1,6 @@
 package dz.khidma.express.controller;
 
-import dz.khidma.express.entity.ServiceCategory;
+import dz.khidma.express.entity.Category;
 import dz.khidma.express.service.ServiceCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,37 +12,37 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/categories")
 @CrossOrigin(origins = "*")
-public class ServiceCategoryController {
+public class CategoryController {
 
     private final ServiceCategoryService service;
 
-    public ServiceCategoryController(ServiceCategoryService service) {
+    public CategoryController(ServiceCategoryService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<ServiceCategory> getAll() {
+    public List<Category> getAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ServiceCategory> getById(@PathVariable Long id) {
+    public ResponseEntity<Category> getById(@PathVariable Long id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/by-name/{name}")
-    public ResponseEntity<ServiceCategory> getByName(@PathVariable String name) {
+    public ResponseEntity<Category> getByName(@PathVariable String name) {
         return service.findByName(name)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<ServiceCategory> create(@RequestBody ServiceCategory category) {
+    public ResponseEntity<Category> create(@RequestBody Category category) {
         try {
-            ServiceCategory saved = service.create(category);
+            Category saved = service.create(category);
             return ResponseEntity.created(URI.create("/api/categories/" + saved.getId())).body(saved);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -52,7 +52,7 @@ public class ServiceCategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ServiceCategory> update(@PathVariable Long id, @RequestBody ServiceCategory category) {
+    public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category category) {
         try {
             return service.update(id, category)
                     .map(ResponseEntity::ok)
