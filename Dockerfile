@@ -17,20 +17,30 @@
 #EXPOSE 8080
 #CMD ["java", "-jar", "target/khidma-express-0.0.1-SNAPSHOT.jar"]
 
+
+
 # -------------------------
 # 1. Build stage
 # -------------------------
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
+# Copy Maven files first to enable dependency caching
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline
 
+RUN chmod +x mvnw
+
+# Download dependencies (cached by Docker layer)
+RUN ./mvnw dependency:go-offline -B
+
+# Now copy the actual code
 COPY src src
-RUN ./mvnw clean package -DskipTests
+
+# Build the app
+RUN ./mvnw clean package -DskipTests -B
+
 
 # -------------------------
 # 2. Runtime stage
