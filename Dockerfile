@@ -18,29 +18,16 @@
 #CMD ["java", "-jar", "target/khidma-express-0.0.1-SNAPSHOT.jar"]
 
 
-
 # -------------------------
-# 1. Build stage
+# 1. Build stage (uses Maven, no mvnw needed)
 # -------------------------
-FROM eclipse-temurin:21-jdk AS build
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copy Maven files first to enable dependency caching
-COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
-
-RUN chmod +x mvnw
-
-# Download dependencies (cached by Docker layer)
-RUN ./mvnw dependency:go-offline -B
-
-# Now copy the actual code
 COPY src src
 
-# Build the app
-RUN ./mvnw clean package -DskipTests -B
-
+RUN mvn -q -e -DskipTests clean package
 
 # -------------------------
 # 2. Runtime stage
