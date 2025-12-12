@@ -72,6 +72,9 @@ public class User {
     @Column(name = "ACCOUNT_NON_LOCKED")
     private int accountNonLocked;
 
+    @Column(name = "EMAIL_VERIFIED")
+    private Boolean emailVerified = false;
+
     @Column(name = "PASSWORD")
     @JsonProperty(value = "password", access = JsonProperty.Access.WRITE_ONLY)
     private String password;

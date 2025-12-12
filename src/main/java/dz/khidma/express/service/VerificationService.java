@@ -100,6 +100,16 @@ public class VerificationService {
         boolean match = info.code().equals(code);
         if (match) {
             codes.remove(email.toLowerCase());
+            try {
+                userRepository.findByEmailIgnoreCase(email.trim())
+                        .ifPresent(u -> {
+                            u.setEmailVerified(true);
+                            userRepository.save(u);
+                        });
+            } catch (Exception e) {
+                log.error("Failed to set emailVerified for {}: {}", email, e.getMessage());
+                // Do not fail verification due to persistence error
+            }
         }
         return match;
     }
