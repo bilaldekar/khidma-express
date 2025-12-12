@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 public class Worker extends User {
 
-//    private String specialization;
+    private String specialization;
 
     private double rating;
 
